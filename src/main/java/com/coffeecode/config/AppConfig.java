@@ -26,6 +26,9 @@ public class AppConfig {
     }
 
     public static String getProperty(String key) {
+        if (key == null) {
+            return null;
+        }
         return properties.getProperty(key);
     }
 }
