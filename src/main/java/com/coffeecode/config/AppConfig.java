@@ -10,7 +10,7 @@ public class AppConfig {
 
     private AppConfig() {
         throw new IllegalStateException("configuration class- dont instantiate");
-    
+
     }
 
     private static final Logger logger = LoggerFactory.getLogger(AppConfig.class);
@@ -19,7 +19,7 @@ public class AppConfig {
     static {
         try {
             properties.load(AppConfig.class.getClassLoader()
-                    .getResourceAsStream("application.properties"));
+                    .getResourceAsStream("config/application.properties"));
         } catch (IOException e) {
             logger.error("Failed to load application.properties", e);
         }
