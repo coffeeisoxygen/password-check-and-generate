@@ -246,6 +246,19 @@
             </configuration>
           </execution>
         </executions>
+        <configuration>
+          <rules>
+            <rule>
+              <limits>
+                <limit>
+                  <counter>LINE</counter>
+                  <value>COVEREDRATIO</value>
+                  <minimum>0.80</minimum>
+                </limit>
+              </limits>
+            </rule>
+          </rules>
+        </configuration>
       </plugin>
       <!-- Code Formatting -->
       <plugin>

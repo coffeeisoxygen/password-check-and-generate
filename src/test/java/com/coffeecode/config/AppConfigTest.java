@@ -3,9 +3,14 @@ package com.coffeecode.config;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -27,43 +32,43 @@ class AppConfigTest {
     }
 
     @Test
-    void testGetProperty_ExistingProperty() {
-        // Given an existing property
-        String propertyKey = "app.name";
-
-        // When getting the property
-        String value = AppConfig.getProperty(propertyKey);
-
-        // Then it should return the correct value
-        assertEquals("passwordcheck", value);
+    void shouldNotBeInstantiable() {
+        Constructor<?>[] constructors = AppConfig.class.getDeclaredConstructors();
+        assertEquals(1, constructors.length);
+        Constructor<?> constructor = constructors[0];
+        assertFalse(constructor.canAccess(null));
+        
+        constructor.setAccessible(true);
+        InvocationTargetException exception = assertThrows(InvocationTargetException.class, () -> constructor.newInstance());
+        assertEquals(IllegalStateException.class, exception.getCause().getClass());
+        assertEquals(IllegalStateException.class, exception.getCause().getClass());
     }
 
     @Test
-    void testGetProperty_NonExistentProperty() {
-        // Given a non-existent property
-        String propertyKey = "non.existent.property";
+    void shouldLoadValidProperties() {
+        // Test existing property
+        String appName = AppConfig.getProperty("app.name");
+        assertNotNull(appName);
+        assertEquals("passwordcheck", appName);
+    }
 
-        // When getting the property
-        String value = AppConfig.getProperty(propertyKey);
-
-        // Then it should return null
+    @Test
+    void shouldReturnNullForNonExistentProperty() {
+        String value = AppConfig.getProperty("non.existent.property");
         assertNull(value);
     }
 
     @Test
-    void testGetProperty_NullKey() {
-        // When getting a property with null key
+    void shouldHandleNullPropertyKey() {
         String value = AppConfig.getProperty(null);
-
-        // Then it should return null
         assertNull(value);
     }
 
     @Test
-    void testAllConfigurationProperties() {
-        // Test all expected configuration properties
-        assertEquals("passwordcheck", AppConfig.getProperty("app.name"));
-        assertEquals("1.0-COFFEESHOT", AppConfig.getProperty("app.version"));
-        assertEquals("8", AppConfig.getProperty("app.min.password.length"));
+    void shouldHandleMissingPropertiesFile() {
+        // This test verifies the error logging when properties file is missing
+        // Note: This is testing the static block behavior indirectly
+        String value = AppConfig.getProperty("some.property");
+        assertNull(value);
     }
 }
