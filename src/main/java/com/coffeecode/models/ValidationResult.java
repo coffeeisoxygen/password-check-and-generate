@@ -9,6 +9,18 @@ public record ValidationResult(
         ValidationLevel severity) {
 
     public enum ValidationLevel {
-        PASS, WARNING, ERROR
+        PASS("Valid"),
+        WARNING("Warning"),
+        ERROR("Error");
+
+        private final String description;
+
+        ValidationLevel(String description) {
+            this.description = description;
+        }
+
+        public String getDescription() {
+            return description;
+        }
     }
 }
