@@ -63,6 +63,13 @@
   </dependencyManagement>
 
   <dependencies>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-text</artifactId>
+      <version>1.13.0</version>
+    </dependency>
+
     <!-- Testing Purposes -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
