@@ -39,7 +39,7 @@ class AppConfigTest {
         assertFalse(constructor.canAccess(null));
         
         constructor.setAccessible(true);
-        InvocationTargetException exception = assertThrows(InvocationTargetException.class, () -> constructor.newInstance());
+        InvocationTargetException exception = assertThrows(InvocationTargetException.class, constructor::newInstance);
         assertEquals(IllegalStateException.class, exception.getCause().getClass());
         assertEquals(IllegalStateException.class, exception.getCause().getClass());
     }

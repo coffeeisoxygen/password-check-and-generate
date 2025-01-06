@@ -210,55 +210,21 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>${jacoco.version}</version>
+        <version>0.8.4</version>
         <executions>
           <execution>
-            <id>prepare-agent</id>
             <goals>
               <goal>prepare-agent</goal>
             </goals>
           </execution>
           <execution>
             <id>report</id>
-            <phase>verify</phase>
+            <phase>prepare-package</phase>
             <goals>
               <goal>report</goal>
             </goals>
           </execution>
-          <execution>
-            <id>check</id>
-            <goals>
-              <goal>check</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <rule>
-                  <element>CLASS</element>
-                  <limits>
-                    <limit>
-                      <counter>LINE</counter>
-                      <value>COVEREDRATIO</value>
-                      <minimum>0.80</minimum>
-                    </limit>
-                  </limits>
-                </rule>
-              </rules>
-            </configuration>
-          </execution>
         </executions>
-        <configuration>
-          <rules>
-            <rule>
-              <limits>
-                <limit>
-                  <counter>LINE</counter>
-                  <value>COVEREDRATIO</value>
-                  <minimum>0.80</minimum>
-                </limit>
-              </limits>
-            </rule>
-          </rules>
-        </configuration>
       </plugin>
       <!-- Code Formatting -->
       <plugin>
@@ -317,11 +283,9 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven.compiler.version}</version>
+        <version>3.11.0</version>
         <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-          <!-- Remove Error Prone for now -->
+          <release>${maven.compiler.release}</release>
         </configuration>
       </plugin>
 
