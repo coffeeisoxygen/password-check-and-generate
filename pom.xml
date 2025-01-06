@@ -124,6 +124,10 @@
       <resource>
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
+        <includes>
+          <include>**/*.properties</include>
+          <include>**/*.xml</include>
+        </includes>
       </resource>
     </resources>
     <plugins>
@@ -276,7 +280,7 @@
           <createDependencyReducedPom>false</createDependencyReducedPom>
           <transformers>
             <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-              <mainClass>com.kafka.App</mainClass>
+              <mainClass>com.coffeecode.App</mainClass>
             </transformer>
           </transformers>
         </configuration>
